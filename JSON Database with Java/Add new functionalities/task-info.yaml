@@ -198,5 +198,8 @@ files:
       }
     learner_created: false
 feedback_link: https://hyperskill.org/learn/step/5492#comment
-status: Unchecked
+status: Solved
+feedback:
+  message: Congratulations!
+  time: "Fri, 08 Mar 2024 11:49:20 UTC"
 record: 3

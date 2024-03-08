@@ -16,73 +16,79 @@ public class Main {
 
     public static void main(String[] args) {
 
+        String[] database = new String[1000];
+        Arrays.fill(database, "");
+
+        String receivedMessage = "";
+
         System.out.println("Server started!");
 
         try(
                 ServerSocket server = new ServerSocket(PORT, 50, InetAddress.getByName(SERVER_ADDRESS));
+                ){
+
+            while(true){
                 Socket socket = server.accept();
                 DataInputStream input = new DataInputStream(socket.getInputStream());
                 DataOutputStream output  = new DataOutputStream(socket.getOutputStream());
-                ){
 
-            String receivedMessage = input.readUTF();
-            System.out.println("Received: " + receivedMessage);
+                receivedMessage = input.readUTF();
+                // System.out.println("Received: " + receivedMessage);
 
-            String sendMessage = "A record # 12 was sent!";
-            output.writeUTF(sendMessage);
-            System.out.println("Sent: " + sendMessage);
+                String sendMessage = getResult(receivedMessage, database);
+//            String sendMessage = "hii" + receivedMessage;
+                output.writeUTF(sendMessage);
+                // System.out.println("Sent: " + sendMessage);
+                if(receivedMessage.split(" ")[0].equals("exit"))break;
+            }
 
         }catch (IOException e){
             e.printStackTrace();
         }
 
-
-//        String[] database = new String[100];
-//        Arrays.fill(database, "");
-//
 //        Scanner sc = new Scanner(System.in);
-//
-//        while(sc.hasNext()){
-//            String inputCommand = sc.nextLine();
-//
-//            if(inputCommand.equals("exit"))break;
-//
-//            String[] input = inputCommand.split(" ");
-//            String command = input[0];
-//            int value = Integer.parseInt(input[1])-1;
-//
-//            if(command.equals("get")){
-//                if(database[value].isEmpty()){
-//                    System.out.println("Error");
-//                }else{
-//                    System.out.println(database[value]);
-//                }
-//            } else if(command.equals("set")){
-//                if(value < 0 || value >= 100){
-//                    System.out.println("Error");
-//                }else{
-//                    StringBuilder content = new StringBuilder();
-//                    int ind = 2;
-//                    while(ind < input.length){
-//                        content.append(input[ind]);
-//                        if(ind != input.length-1){
-//                            content.append(" ");
-//                        }
-//                        ind++;
-//                    }
-//                    database[value] = content.toString();
-//                    System.out.println("OK");
-//                }
-//            } else if(command.equals("delete")){
-//                if(value < 0 || value >= 100){
-//                    System.out.println("Error");
-//                }else{
-//                    database[value] = "";
-//                    System.out.println("OK");
-//                }
-//            }
-//
-//        }
 
+
+    }
+
+    private static String getResult(String receivedMessage, String[] database) {
+
+        String[] input = receivedMessage.split(" ");
+
+        if(input[0].equals("exit")) return "OK";
+
+        String command = input[0];
+        int index = Integer.parseInt(input[1])-1;
+        StringBuilder text = new StringBuilder();
+
+        if(command.equals("get")){
+            if(database[index].isEmpty()){
+                return "Error";
+            }else{
+                return database[index];
+            }
+        } else if(command.equals("set")){
+            int ind = 2;
+            while(ind < input.length){
+                text.append(input[ind]);
+                if(ind != input.length-1)text.append(" ");
+                ind++;
+            }
+            if(index < 0 || index >= 100){
+                return "Error";
+            }else{
+                database[index] = text.toString();
+                return "OK";
+            }
+        } else if(command.equals("delete")){
+            if(index < 0 || index >= 100){
+                return "Error";
+            }else{
+                database[index] = "";
+                return "OK";
+            }
+        }
+
+        return "";
     }
 }
