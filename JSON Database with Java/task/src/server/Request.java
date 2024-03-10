@@ -6,6 +6,8 @@ public class Request {
     private String key;
     private String value;
 
+    public Request(){}
+
     public Request(String type, String key, String value) {
         this.type = type;
         this.key = key;

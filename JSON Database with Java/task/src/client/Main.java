@@ -5,13 +5,18 @@ import com.beust.jcommander.Parameter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import com.google.gson.Gson;
 import server.Request;
 import server.Request;
+
+import static java.nio.channels.FileChannel.open;
 
 public class Main {
 
@@ -24,10 +29,13 @@ public class Main {
     String index;
     @Parameter(names = "-v", description = "value")
     String text;
+    @Parameter(names = "-in", description = "file name")
+    String fileName;
 
     public static void main(String[] args) {
 
         String operation = "";
+        Request request;
 
         Main main = new Main();
         JCommander.newBuilder()
@@ -42,7 +50,14 @@ public class Main {
         ){
             System.out.println("Client started!");
 
-            Request request = new Request(main.typeOfOperation, main.index, main.text);
+
+            if(main.fileName == null){
+                request = new Request(main.typeOfOperation, main.index, main.text);
+            }else{
+                String content = new String(Files.readAllBytes(Paths.get("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/client/data/" + main.fileName)));
+                request = new Gson().fromJson(content, Request.class);
+            }
+
 
 //            String sendMessage = main.typeOfOperation + " " + main.index + " " + main.text;
             String sendMessage = new Gson().toJson(request);

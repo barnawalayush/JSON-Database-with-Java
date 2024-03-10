@@ -1,7 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-10T13:18:24" hostname="C14166" time="0.509">
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-03-10T19:00:42" hostname="C14166" time="0.374">
   <properties/>
-  <testcase name="start" classname="JsonDatabaseTest" time="0.509"/>
+  <testcase name="start" classname="JsonDatabaseTest" time="0.374">
+    <failure message="java.lang.AssertionError: Exception in test #3&#10;&#10;com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected a string but was BEGIN_OBJECT at line 1 column 39 path $.value&#10;&#9;at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:226)&#10;&#9;at com.google.gson.Gson.fromJson(Gson.java:963)&#10;&#9;at com.google.gson.Gson.fromJson(Gson.java:928)&#10;&#9;at com.google.gson.Gson.fromJson(Gson.java:877)&#10;&#9;at com.google.gson.Gson.fromJson(Gson.java:848)&#10;&#9;at client.Main.main(Main.java:58)&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;&#10;Arguments for Main: -in setFile.json&#10;&#10;Server started!&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}&#10;Received: {&quot;response&quot;:&quot;OK&quot;}&#10;Client started!" type="java.lang.AssertionError">java.lang.AssertionError: Exception in test #3
+
+com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected a string but was BEGIN_OBJECT at line 1 column 39 path $.value
+	at com.google.gson.internal.bind.ReflectiveTypeAdapterFactory$Adapter.read(ReflectiveTypeAdapterFactory.java:226)
+	at com.google.gson.Gson.fromJson(Gson.java:963)
+	at com.google.gson.Gson.fromJson(Gson.java:928)
+	at com.google.gson.Gson.fromJson(Gson.java:877)
+	at com.google.gson.Gson.fromJson(Gson.java:848)
+	at client.Main.main(Main.java:58)
+
+Please find below the output of your program during this failed test.
+
+---
+
+Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;
+Arguments for Main: -in setFile.json
+
+Server started!
+Client started!
+Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}
+Received: {&quot;response&quot;:&quot;OK&quot;}
+Client started!
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Server started!
@@ -10,49 +81,40 @@ Sent: {"type":"exit"}
 Received: {"response":"OK"}
 ?[1;31m
 Start test 2?[0m
+?[1;31m
+Start test 3?[0m
 Server started!
-Client started!
-Sent: {"type":"get","key":"1"}
-Received: {"response":"ERROR","reason":"No such key"}
 Client started!
 Sent: {"type":"set","key":"1","value":"Hello world!"}
 Received: {"response":"OK"}
 Client started!
-Sent: {"type":"set","key":"1","value":"HelloWorld!"}
-Received: {"response":"OK"}
-Client started!
-Sent: {"type":"get","key":"1"}
-Received: {"response":"OK","value":"HelloWorld!"}
-Client started!
-Sent: {"type":"delete","key":"1"}
-Received: {"response":"OK"}
-Client started!
-Sent: {"type":"delete","key":"1"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"get","key":"1"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"set","key":"text","value":"Some text here"}
-Received: {"response":"OK"}
-Client started!
-Sent: {"type":"get","key":"text"}
-Received: {"response":"OK","value":"Some text here"}
-Client started!
-Sent: {"type":"get","key":"56"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"delete","key":"56"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"delete","key":"100"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"delete","key":"That key doesn\u0027t exist"}
-Received: {"response":"ERROR","reason":"No such key"}
-Client started!
-Sent: {"type":"exit"}
-Received: {"response":"OK"}
 ]]></system-out>
-  <system-err><![CDATA[]]></system-err>
+  <system-err><![CDATA[java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endAccept(NioSocketImpl.java:694)
+	at java.base/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:767)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:675)
+	at java.base/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:617)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:574)
+	at java.base/java.net.ServerSocket.accept(ServerSocket.java:532)
+	at server.Main.main(Main.java:38)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:160)
+	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$1(MainMethodExecutor.java:188)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+Exc?[0;34meption in thread "Thread-5" java.lang.RuntimeException: java.io.EOFException
+?[0m?[0;34m	at server.Main$ClientHandler.run(Main.java:130)
+?[0m?[0;34mCaused by: java.io.EOFException
+?[0m?[0;34m	at java.base/java.io.DataInputStream.readUnsignedShort(DataInputStream.java:337)
+?[0m?[0;34m	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:583)
+?[0m?[0;34m	at java.base/java.io.DataInputStream.readUTF(DataInputStream.java:558)
+?[0m?[0;34m	at server.Main$ClientHandler.run(Main.java:104)
+]]></system-err>
 </testsuite>
