@@ -562,43 +562,6 @@ files:
           }
       }
     learner_created: false
-  - name: test/JsonRequestBuilder.java
-    visible: false
-    text: |-
-      import com.google.gson.Gson;
-      import com.google.gson.JsonObject;
-      
-      class JsonBuilder {
-      
-          private final Gson gson = new Gson();
-          private final JsonObject jsonObject = new JsonObject();
-      
-          private JsonBuilder() {
-          }
-      
-          public static JsonBuilder newBuilder() {
-              return new JsonBuilder();
-          }
-      
-          public JsonBuilder addValue(String key, String value) {
-              jsonObject.addProperty(key, value);
-              return this;
-          }
-      
-          public JsonBuilder addJsonObject(String key, JsonObject object) {
-              jsonObject.add(key, object);
-              return this;
-          }
-      
-          public String getAsString() {
-              return jsonObject.toString();
-          }
-      
-          public JsonObject getAsJsonObject() {
-              return jsonObject;
-          }
-      }
-    learner_created: false
   - name: src/server/Request.java
     visible: true
     text: |
@@ -698,10 +661,12 @@ files:
   - name: src/server/data/db.json
     visible: true
     learner_created: true
+  - name: test/JsonRequestBuilder.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5494#comment
 status: Solved
 feedback:
-  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
-    to continue learning.
-  time: "Sun, 10 Mar 2024 18:59:44 UTC"
+  message: Congratulations!
+  time: "Sun, 10 Mar 2024 19:02:21 UTC"
 record: 5
