@@ -291,6 +291,612 @@ files:
           }
       }
     learner_created: false
+  - name: src/server/data/testDelete.json
+    visible: true
+    text: "{\"type\":\"delete\",\"key\":\"name\"}"
+    learner_created: true
+  - name: src/server/exceptions/NoSuchKeyException.java
+    visible: true
+    text: |+
+      package server.exceptions;
+      
+      public class NoSuchKeyException extends RuntimeException{
+          public NoSuchKeyException() {
+              super("No such key");
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/cli/commands/Command.java
+    visible: true
+    text: |+
+      package server.cli.commands;
+      
+      public interface Command {
+          void execute();
+      }
+    
+    learner_created: true
+  - name: src/client/data/testGet.json
+    visible: true
+    text: "{\"type\":\"get\",\"key\":\"name\"}"
+    learner_created: true
+  - name: src/server/cli/commands/SetCommand.java
+    visible: true
+    text: |+
+      package server.cli.commands;
+      
+      //import com.fasterxml.jackson.databind.ObjectMapper;
+      import org.json.simple.*;
+      //import org.json.JSONException;
+      import org.json.simple.JSONArray;
+      import org.json.simple.JSONObject;
+      import org.json.simple.parser.JSONParser;
+      import org.json.simple.parser.ParseException;
+      import server.database.Database;
+      
+      import java.io.FileNotFoundException;
+      import java.io.FileReader;
+      import java.io.FileWriter;
+      import java.io.IOException;
+      import java.util.ArrayList;
+      import java.util.Arrays;
+      import java.util.List;
+      
+      
+      public class SetCommand implements Command {
+      
+          private final String key;
+          private final String value;
+          private static FileWriter file;
+          private JSONArray datalist;
+      
+          public SetCommand(String key, String value, JSONArray datalist) {
+              this.key = key;
+              this.value = value;
+              this.datalist = datalist;
+          }
+      
+          @Override
+          public void execute() {
+      
+              boolean iskeyinarray = false;
+      
+              JSONArray listofvalues = new JSONArray();
+      
+              //try (FileReader reader = new FileReader("./src/server/data/")){
+              try (FileReader reader = new FileReader("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/db.json")) {
+                  JSONParser jsonParser = new JSONParser();
+                  Object obj = jsonParser.parse(reader);
+                  if (obj.toString().isEmpty()) {
+                      listofvalues = (JSONArray) obj;   //Array of json items
+      
+                      //Тут мы заменяем (обновляем) значение по ключу, если таковой присутствует в массиве
+                      for (int i=0; i < listofvalues.size(); i++){
+                          JSONObject itemArr = (JSONObject) listofvalues.get(i);
+                          if(itemArr.get("key").toString().equals(key)) {
+                              itemArr.put("value", value);
+                              iskeyinarray = true;
+                          }
+                      }
+                  }
+                  else {
+                      JSONObject information = new JSONObject();
+                      information.put("key", key);
+                      information.put("value", value);
+                      listofvalues.add(information);
+                  }
+              }
+              catch (ParseException | IOException e) {
+                  e.printStackTrace();
+              }
+      
+              /*
+              if (!iskeyinarray) {
+                  JSONObject information = new JSONObject();
+                  information.put("key", key);
+                  information.put("value", value);
+                  listofvalues.add(information);
+              }
+              */
+      
+              try{
+                  file = new FileWriter("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/db.json");
+                  //file = new FileWriter("./src/server/data/");
+                  JSONArray.writeJSONString(listofvalues, file);
+                  //file.write(listofvalues.toJSONString());
+              }
+              catch (IOException e) {
+                  e.printStackTrace();
+              }
+              finally {
+                  try {
+                      file.flush();
+                      file.close();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/cli/requests/Response.java
+    visible: true
+    text: |+
+      package server.cli.requests;
+      
+      import com.google.gson.Gson;
+      
+      import java.util.LinkedHashMap;
+      import java.util.Map;
+      
+      public class Response {
+      
+          public static final String STATUS_OK = "OK";
+          public static final String STATUS_ERROR = "ERROR";
+      
+      
+          private String response;
+          private String reason;
+          private String value;
+      
+      
+          public String getResponse() {
+              return response;
+          }
+      
+          public void setResponse(String response) {
+              this.response = response;
+          }
+      
+          public String getReason() {
+              return reason;
+          }
+      
+          public void setReason(String reason) {
+              this.reason = reason;
+          }
+      
+          public String getValue() {
+              return value;
+          }
+      
+          public void setValue(String value) {
+              this.value = value;
+          }
+      
+          public String toJSON() {
+              Map<String, String> map = new LinkedHashMap<>();
+              map.put("response", response);
+              if (value != null) {
+                  map.put("value", value);
+              }
+              if (reason != null) {
+                  map.put("reason", reason);
+              }
+              return new Gson().toJson(map);
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/database/Database.java
+    visible: true
+    text: |+
+      package server.database;
+      
+      import server.exceptions.NoSuchKeyException;
+      
+      import java.util.HashMap;
+      import java.util.Map;
+      
+      public enum Database {
+          INSTANCE;
+      
+          private final Map<String, String> database;
+      
+          Database() {
+              database = new HashMap<>();
+          }
+      
+          public void set(String key, String value) {
+              database.put(key, value);
+          }
+      
+          public String get(String key) {
+              if (database.containsKey(key)) {
+                  return database.get(key);
+              }
+              throw new NoSuchKeyException();
+          }
+      
+          public void delete(String key) {
+              if (!database.containsKey(key)) {
+                  throw new NoSuchKeyException();
+              }
+              database.remove(key);
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/exceptions/FileIsNotFoundException.java
+    visible: true
+    text: |+
+      package server.exceptions;
+      
+      public class FileIsNotFoundException extends RuntimeException{
+          public FileIsNotFoundException() {
+              super("No such file");
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/cli/commands/GetCommand.java
+    visible: true
+    text: |+
+      package server.cli.commands;
+      
+      import com.google.gson.JsonArray;
+      import com.google.gson.JsonObject;
+      import org.json.simple.JSONArray;
+      import org.json.simple.JSONObject;
+      
+      import org.json.simple.parser.JSONParser;
+      import org.json.simple.parser.ParseException;
+      import server.database.Database;
+      import server.exceptions.FileIsEmptyException;
+      import server.exceptions.FileIsNotFoundException;
+      import server.exceptions.NoSuchKeyException;
+      
+      import java.io.FileNotFoundException;
+      import java.io.FileReader;
+      import java.io.IOException;
+      import java.util.List;
+      import java.util.Map;
+      import java.util.stream.Collectors;
+      import java.util.stream.IntStream;
+      import java.util.stream.Stream;
+      
+      
+      public class GetCommand implements Command {
+      
+          private final String key;
+          private String result;
+      
+          public GetCommand(String key) {
+              this.key = key;
+          }
+      
+          public final String getResult() {
+              return result;
+          }
+      
+          @Override
+          public void execute() {
+              //result = Database.INSTANCE.get(key);
+              /*
+              if (database.containsKey(key)) {
+                  return database.get(key);
+              }
+              throw new NoSuchKeyException();
+              */
+      
+              //JSON parser object to parse read file
+              JSONParser jsonParser = new JSONParser();
+      
+              //try (FileReader reader = new FileReader("./src/server/data/"))
+              try (FileReader reader = new FileReader("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/db.json"))
+              {
+                  Object obj = jsonParser.parse(reader);   //Read JSON file
+                  try{
+                      JSONArray listofvalues = (JSONArray) obj;
+      
+                      for (int i = 0; i < listofvalues.size(); i++) {
+                          JSONObject tempobj = (JSONObject) listofvalues.get(i);
+                          if (tempobj.get("key").equals(key)){
+                              //result = tempobj.toJSONString();
+                              result = (String) tempobj.get("value");
+                          }
+                      }
+                  }
+                  catch (Exception e) {
+                      throw new NoSuchKeyException();
+                  }
+                  if (result == null) {
+                      throw new NoSuchKeyException();
+                  }
+              }
+      
+              catch (FileNotFoundException e) {
+                  throw new NoSuchKeyException();
+              }
+              catch (IOException | ParseException e) {
+                  e.printStackTrace();
+              }
+          }
+      
+      }
+    
+    learner_created: true
+  - name: src/server/cli/commands/DeleteCommand.java
+    visible: true
+    text: |+
+      package server.cli.commands;
+      
+      import org.json.simple.JSONArray;
+      import org.json.simple.JSONObject;
+      import org.json.simple.parser.JSONParser;
+      import org.json.simple.parser.ParseException;
+      import server.database.Database;
+      import server.exceptions.NoSuchKeyException;
+      
+      import java.io.FileNotFoundException;
+      import java.io.FileReader;
+      import java.io.FileWriter;
+      import java.io.IOException;
+      import java.util.ArrayList;
+      
+      
+      public class DeleteCommand implements Command {
+      
+          private final String key;
+          private static FileWriter file;
+      
+          public DeleteCommand(String key) {
+              this.key = key;
+          }
+          @Override
+          public void execute() {
+      
+              JSONArray listofvalues = new JSONArray();
+              Integer position = null;
+              boolean elementexeists = false;
+      
+              //try (FileReader reader = new FileReader("./src/server/data/")){
+              try (FileReader reader = new FileReader("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/db.json")) {
+                  JSONParser jsonParser = new JSONParser();
+                  Object obj = jsonParser.parse(reader);
+                  listofvalues = (JSONArray) obj;   //Array of json items
+              }
+              catch (FileNotFoundException e) {
+                  e.printStackTrace();
+              } catch (IOException e) {
+                  e.printStackTrace();
+              } catch (ParseException e) {
+                  throw new RuntimeException(e);
+              }
+      
+              for (int i=0; i < listofvalues.size(); i++){
+                  JSONObject itemArr = (JSONObject) listofvalues.get(i);
+                  if(itemArr.get("key").toString().equals(key)) {
+                      position = i;
+                  }
+              }
+      
+              JSONArray list = new JSONArray();
+              int len = listofvalues.size();
+              if (position != null) {
+                  for (int i=0;i<len;i++) {
+                      if (i != position)
+                      {
+                          list.add(listofvalues.get(i));
+                      }
+                  }
+              }
+              else
+              {
+                  throw new NoSuchKeyException();
+              }
+      
+      
+              try{
+                  file = new FileWriter("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/db.json");
+                  file.write(list.toJSONString());
+              }
+              catch (IOException e) {
+                  e.printStackTrace();
+              }
+              finally {
+                  try {
+                      file.flush();
+                      file.close();
+                  } catch (IOException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/data/testSet.json
+    visible: true
+    text: "{\"type\":\"set\",\"key\":\"name\",\"value\":\"Kate\"}"
+    learner_created: true
+  - name: src/server/cli/CommandExecutor.java
+    visible: true
+    text: |+
+      package server.cli;
+      
+      import server.cli.commands.Command;
+      
+      public class CommandExecutor {
+          public void executeCommand(Command command) {
+              command.execute();
+          }
+      }
+    
+    
+    learner_created: true
+  - name: src/server/exceptions/NoSuchRequestException.java
+    visible: true
+    text: |+
+      package server.exceptions;
+      
+      public class NoSuchRequestException extends RuntimeException{
+          public NoSuchRequestException() {
+              super("Bad request");
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/data/testGet.json
+    visible: true
+    text: "{\"type\":\"get\",\"key\":\"name\"}"
+    learner_created: true
+  - name: src/client/data/testSet.json
+    visible: true
+    text: "{\"type\":\"set\",\"key\":\"name\",\"value\":\"Kate\"}"
+    learner_created: true
+  - name: src/client/data/testDelete.json
+    visible: true
+    text: "{\"type\":\"delete\",\"key\":\"name\"}"
+    learner_created: true
+  - name: src/server/cli/requests/Request.java
+    visible: true
+    text: |+
+      package server.cli.requests;
+      
+      import com.beust.jcommander.Parameter;
+      import com.google.gson.Gson;
+      
+      import java.io.*;
+      import java.nio.file.Files;
+      import java.nio.file.Paths;
+      import java.util.LinkedHashMap;
+      import java.util.Map;
+      
+      public class Request {
+      
+          /*
+          private static final Path DATA_DIR_PATH = Paths.get(
+                  "src" + File.separator +
+                          "client" + File.separator +
+                          "data").toAbsolutePath();
+          */
+      
+          @Parameter(names = {"-t", "--type"}, description = "The type of the request")
+          private String type;
+      
+          @Parameter(names = {"-k", "--key"}, description = "The Record key")
+          private String key;
+      
+          @Parameter(names = {"-v", "--value"}, description = "The text value to add")
+          private String value;
+      
+          //Название файла для чтения
+          @Parameter(names = {"-in", "--commandfromfile"}, description = "The text with commands from file")
+          private String commandfromfile;
+      
+      
+          public String getType() {
+              return type;
+          }
+      
+          public void setType(String type) {
+              this.type = type;
+          }
+      
+          public String getKey() {
+              return key;
+          }
+      
+          public void setKey(String key) {
+              this.key = key;
+          }
+      
+          public String getValue() {
+              return value;
+          }
+      
+          public void setValue(String value) {
+              this.value = value;
+          }
+      
+          public String getCommandfromfile() {
+              return commandfromfile;
+          }
+      
+          public void setCommandfromfile(String commandfromfile) {
+              this.commandfromfile = commandfromfile;
+          }
+      
+          /*
+          public String toJSON() {
+              Map<String, String> map = new LinkedHashMap<>();
+              map.put("type", type);
+              if (key != null) {
+                  map.put("key", key);
+              }
+              if (value != null) {
+                  map.put("value", value);
+              }
+              return new Gson().toJson(map);
+          }
+          */
+      
+          private String readFromFile(String path) throws IOException {
+              return new String(Files.readAllBytes(Paths.get(path)));
+          }
+      
+          public String toJson() {
+              if (commandfromfile != null) {
+                  try {
+                      return readFromFile("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/server/data/" + commandfromfile);
+                  } catch (IOException e) {
+                      System.out.println("Cannot read file: " + e.getMessage());
+                      System.exit(1);
+                  }
+              }
+      
+              Map<String, String> map = new LinkedHashMap<>();
+              map.put("type", type);
+              map.put("key",key);
+              map.put("value",value);
+              return new Gson().toJson(map); //{type type, key key, value value}
+          }
+      }
+    
+    learner_created: true
+  - name: src/server/exceptions/FileIsEmptyException.java
+    visible: true
+    text: |
+      package server.exceptions;
+      
+      public class FileIsEmptyException extends RuntimeException {
+          public FileIsEmptyException() {
+              super("No data in a file");
+          }
+      }
+    learner_created: true
+  - name: src/server/data/db.json
+    visible: true
+    text: "[]"
+    learner_created: true
+  - name: src/server/cli/CommandLineArgs.java
+    visible: true
+    learner_created: true
+  - name: src/server/data/data.json
+    visible: true
+    learner_created: true
+  - name: src/server/data/deleteFile.json
+    visible: true
+    learner_created: true
+  - name: src/server/data/getFile.json
+    visible: true
+    learner_created: true
+  - name: src/server/data/secondGetFile.json
+    visible: true
+    learner_created: true
+  - name: src/server/data/setFile.json
+    visible: true
+    learner_created: true
+  - name: src/server/data/updateFile.json
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
-status: Unchecked
-record: -1
+status: Solved
+feedback:
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Sat, 09 Mar 2024 06:23:51 UTC"
+record: 6

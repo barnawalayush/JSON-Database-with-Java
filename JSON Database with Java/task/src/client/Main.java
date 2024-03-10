@@ -7,9 +7,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.SQLOutput;
+
+import com.google.gson.Gson;
+import server.Request;
+import server.Request;
 
 public class Main {
 
@@ -18,9 +20,9 @@ public class Main {
 
     @Parameter(names = "-t", description = "Type Of Operation")
     String typeOfOperation;
-    @Parameter(names = "-i", description = "Index Of Cell")
+    @Parameter(names = "-k", description = "key")
     String index;
-    @Parameter(names = "-m", description = "text sent")
+    @Parameter(names = "-v", description = "value")
     String text;
 
     public static void main(String[] args) {
@@ -40,14 +42,15 @@ public class Main {
         ){
             System.out.println("Client started!");
 
-//            while(true){
-//                String sendMessage = "Ayush";
-                String sendMessage = main.typeOfOperation + " " + main.index + " " + main.text;
-                output.writeUTF(sendMessage);
-                System.out.println("Sent: " + sendMessage);
+            Request request = new Request(main.typeOfOperation, main.index, main.text);
 
-                String receivedMessage = input.readUTF();
-                System.out.println("Received: " + receivedMessage);
+//            String sendMessage = main.typeOfOperation + " " + main.index + " " + main.text;
+            String sendMessage = new Gson().toJson(request);
+            output.writeUTF(sendMessage);
+            System.out.println("Sent: " + sendMessage);
+
+            String receivedMessage = input.readUTF();
+            System.out.println("Received: " + receivedMessage);
 //                if(main.typeOfOperation.equals("exit"))break;
 //            }
 
