@@ -1,51 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-03-10T20:16:41" hostname="C14166" time="0.373">
+<testsuite name="JsonDatabaseTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-03-11T10:49:40" hostname="C14166" time="0.408">
   <properties/>
-  <testcase name="start" classname="JsonDatabaseTest" time="0.373">
-    <failure message="java.lang.AssertionError: Exception in test #3&#10;&#10;com.beust.jcommander.ParameterException: Could not invoke null&#10;    Reason: Can not set com.google.gson.JsonElement field client.Main.index to java.lang.String&#10;&#9;at com.beust.jcommander.Parameterized.set(Parameterized.java:273)&#10;&#9;at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:86)&#10;&#9;at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:74)&#10;&#9;at com.beust.jcommander.ParameterDescription.addValue(ParameterDescription.java:277)&#10;&#9;at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:913)&#10;&#9;at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:894)&#10;&#9;at com.beust.jcommander.JCommander.parseValues(JCommander.java:724)&#10;&#9;at com.beust.jcommander.JCommander.parse(JCommander.java:356)&#10;&#9;at com.beust.jcommander.JCommander.parse(JCommander.java:335)&#10;&#9;at client.Main.main(Main.java:45)&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;&#10;&#10;stdout:&#10;Server started!&#10;&#10;stderr:&#10;java.net.BindException: Address already in use&#10;&#9;at java.base/sun.nio.ch.Net.bind0(Native Method)&#10;&#9;at java.base/sun.nio.ch.Net.bind(Net.java:555)&#10;&#9;at java.base/sun.nio.ch.Net.bind(Net.java:544)&#10;&#9;at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)&#10;&#9;at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)&#10;&#9;at java.base/java.net.ServerSocket.&lt;init&gt;(ServerSocket.java:274)&#10;&#9;at server.Main.main(Main.java:33)&#10;&#9;at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)&#10;&#9;at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)&#10;&#9;at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)&#10;&#9;at java.base/java.lang.reflect.Method.invoke(Method.java:568)&#10;&#9;at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:160)&#10;&#9;at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$1(MainMethodExecutor.java:188)&#10;&#9;at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)&#10;&#9;at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)&#10;&#9;at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)&#10;&#9;at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)&#10;&#9;at java.base/java.lang.Thread.run(Thread.java:840)" type="java.lang.AssertionError">java.lang.AssertionError: Exception in test #3
+  <testcase name="start" classname="JsonDatabaseTest" time="0.408">
+    <failure message="java.lang.AssertionError: Wrong answer in test #3&#10;&#10;The JSON object should contain a key &quot;value&quot;&#10;&#10;Full JSON:&#10;{&#10;  &quot;response&quot;: &quot;OK&quot;&#10;}&#10;&#10;Please find below the output of your program during this failed test.&#10;&#10;---&#10;&#10;Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;&#10;Arguments for Main: -in setFile.json&#10;Arguments for Main: -in getFile.json&#10;&#10;Server started!&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}&#10;Received: {&quot;response&quot;:&quot;OK&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;person&quot;,&quot;value&quot;:{&quot;name&quot;:&quot;Elon Musk&quot;,&quot;car&quot;:{&quot;model&quot;:&quot;Tesla Roadster&quot;,&quot;year&quot;:&quot;2018&quot;},&quot;rocket&quot;:{&quot;name&quot;:&quot;Falcon 9&quot;,&quot;launches&quot;:&quot;87&quot;}}}&#10;Received: {&quot;response&quot;:&quot;OK&quot;}&#10;Client started!&#10;Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;name&quot;]}&#10;person&#10;Received: {&quot;response&quot;:&quot;OK&quot;}" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #3
 
-com.beust.jcommander.ParameterException: Could not invoke null
-    Reason: Can not set com.google.gson.JsonElement field client.Main.index to java.lang.String
-	at com.beust.jcommander.Parameterized.set(Parameterized.java:273)
-	at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:86)
-	at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:74)
-	at com.beust.jcommander.ParameterDescription.addValue(ParameterDescription.java:277)
-	at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:913)
-	at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:894)
-	at com.beust.jcommander.JCommander.parseValues(JCommander.java:724)
-	at com.beust.jcommander.JCommander.parse(JCommander.java:356)
-	at com.beust.jcommander.JCommander.parse(JCommander.java:335)
-	at client.Main.main(Main.java:45)
+The JSON object should contain a key &quot;value&quot;
+
+Full JSON:
+{
+  &quot;response&quot;: &quot;OK&quot;
+}
 
 Please find below the output of your program during this failed test.
 
 ---
 
 Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;
+Arguments for Main: -in setFile.json
+Arguments for Main: -in getFile.json
 
-stdout:
 Server started!
-
-stderr:
-java.net.BindException: Address already in use
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.Net.bind(Net.java:544)
-	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
-	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
-	at java.base/java.net.ServerSocket.&lt;init&gt;(ServerSocket.java:274)
-	at server.Main.main(Main.java:33)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:160)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$1(MainMethodExecutor.java:188)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
+Client started!
+Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}
+Received: {&quot;response&quot;:&quot;OK&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;person&quot;,&quot;value&quot;:{&quot;name&quot;:&quot;Elon Musk&quot;,&quot;car&quot;:{&quot;model&quot;:&quot;Tesla Roadster&quot;,&quot;year&quot;:&quot;2018&quot;},&quot;rocket&quot;:{&quot;name&quot;:&quot;Falcon 9&quot;,&quot;launches&quot;:&quot;87&quot;}}}
+Received: {&quot;response&quot;:&quot;OK&quot;}
+Client started!
+Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:[&quot;person&quot;,&quot;name&quot;]}
+person
+Received: {&quot;response&quot;:&quot;OK&quot;}
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -99,41 +83,33 @@ java.net.BindException: Address already in use
 Start test 1?[0m
 Server started!
 Client started!
-Sent: null
-Received: {}
+Sent: {"type":"exit"}
+Received: {"response":"OK"}
 ?[1;31m
 Start test 2?[0m
 ?[1;31m
 Start test 3?[0m
 Server started!
+Client started!
+Sent: {"type":"set","key":"1","value":"Hello world!"}
+Received: {"response":"OK"}
+Client started!
+Sent: {"type":"set","key":"person","value":{"name":"Elon Musk","car":{"model":"Tesla Roadster","year":"2018"},"rocket":{"name":"Falcon 9","launches":"87"}}}
+Received: {"response":"OK"}
+Client started!
+Sent: {"type":"get","key":["person","name"]}
+person
+Received: {"response":"OK"}
 ]]></system-out>
-  <system-err><![CDATA[java.net.BindException: Address already in use
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.Net.bind(Net.java:544)
-	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
-	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
-	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
-	at server.Main.main(Main.java:33)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:160)
-	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$1(MainMethodExecutor.java:188)
-	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
-	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
-	at java.base/java.lang.Thread.run(Thread.java:840)
-java.net.BindException: Address already in use
-	at java.base/sun.nio.ch.Net.bind0(Native Method)
-	at java.base/sun.nio.ch.Net.bind(Net.java:555)
-	at java.base/sun.nio.ch.Net.bind(Net.java:544)
-	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
-	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
-	at java.base/java.net.ServerSocket.<init>(ServerSocket.java:274)
-	at server.Main.main(Main.java:33)
+  <system-err><![CDATA[java.net.SocketException: Socket closed
+	at java.base/sun.nio.ch.NioSocketImpl.endAccept(NioSocketImpl.java:694)
+	at java.base/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:767)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:675)
+	at java.base/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:617)
+	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:574)
+	at java.base/java.net.ServerSocket.accept(ServerSocket.java:532)
+	at server.Main.main(Main.java:32)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)

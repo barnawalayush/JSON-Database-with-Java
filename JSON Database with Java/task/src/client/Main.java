@@ -13,8 +13,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import server.Request;
 import server.Request;
+import server.converter.JsonElementConverter;
 
 import static java.nio.channels.FileChannel.open;
 
@@ -25,10 +27,10 @@ public class Main {
 
     @Parameter(names = "-t", description = "Type Of Operation")
     String typeOfOperation;
-    @Parameter(names = "-k", description = "key")
-    String index;
-    @Parameter(names = "-v", description = "value")
-    String text;
+    @Parameter(names = "-k", converter = JsonElementConverter.class, description = "key")
+    JsonElement key;
+    @Parameter(names = "-v", converter = JsonElementConverter.class, description = "value")
+    JsonElement value;
     @Parameter(names = "-in", description = "file name")
     String fileName;
 
@@ -52,7 +54,7 @@ public class Main {
 
 
             if(main.fileName == null){
-                request = new Request(main.typeOfOperation, main.index, main.text);
+                request = new Request(main.typeOfOperation, main.key, main.value);
             }else{
                 String content = new String(Files.readAllBytes(Paths.get("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/client/data/" + main.fileName)));
                 request = new Gson().fromJson(content, Request.class);
