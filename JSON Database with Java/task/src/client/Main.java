@@ -5,7 +5,6 @@ import com.beust.jcommander.Parameter;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
@@ -15,24 +14,21 @@ import java.nio.file.Paths;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import server.Request;
-import server.Request;
 import server.converter.JsonElementConverter;
-
-import static java.nio.channels.FileChannel.open;
 
 public class Main {
 
-    private static final int PORT = 23456;
+    private static final int PORT = 23457;
     private static final String SERVER_ADDRESS = "127.0.0.1";
 
     @Parameter(names = "-t", description = "Type Of Operation")
-    String typeOfOperation;
+    static String typeOfOperation;
     @Parameter(names = "-k", converter = JsonElementConverter.class, description = "key")
-    JsonElement key;
+    static JsonElement key;
     @Parameter(names = "-v", converter = JsonElementConverter.class, description = "value")
-    JsonElement value;
+    static JsonElement value;
     @Parameter(names = "-in", description = "file name")
-    String fileName;
+    static String fileName;
 
     public static void main(String[] args) {
 
@@ -53,10 +49,10 @@ public class Main {
             System.out.println("Client started!");
 
 
-            if(main.fileName == null){
-                request = new Request(main.typeOfOperation, main.key, main.value);
+            if(fileName == null){
+                request = new Request(typeOfOperation, key, value);
             }else{
-                String content = new String(Files.readAllBytes(Paths.get("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/client/data/" + main.fileName)));
+                String content = new String(Files.readAllBytes(Paths.get("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/client/fileName/" + fileName)));
                 request = new Gson().fromJson(content, Request.class);
             }
 

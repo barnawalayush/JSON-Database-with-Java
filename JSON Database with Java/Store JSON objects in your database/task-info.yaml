@@ -402,12 +402,31 @@ files:
   - name: src/server/converter/JsonElementConverter.java
     visible: true
     learner_created: true
-  - name: src/client/data/getFile.json
+  - name: src/client/data/hello.json
+    visible: true
+    learner_created: true
+  - name: src/client/data/ayush.json
+    visible: true
+    learner_created: true
+  - name: src/client/fileName/getFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/fileName/setFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/fileName/updateFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/fileName/secondGetFile.json
+    visible: true
+    learner_created: true
+  - name: src/client/fileName/deleteFile.json
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/5495#comment
-status: Failed
+status: Solved
 feedback:
-  message: Execution failed
-  time: "Mon, 11 Mar 2024 10:49:41 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Mon, 11 Mar 2024 12:24:21 UTC"
 record: 6
