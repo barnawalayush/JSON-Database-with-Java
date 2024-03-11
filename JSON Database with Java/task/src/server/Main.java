@@ -1,21 +1,14 @@
 package server;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
-import com.google.gson.stream.JsonWriter;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.*;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class Main {
@@ -44,30 +37,6 @@ public class Main {
 
                 // Invoking the start() method
                 t.start();
-
-//                receivedMessage = input.readUTF();
-//
-//                Request request = new Gson().fromJson(receivedMessage, Request.class);
-//                String received = request.getType() + " " + request.getKey() + " " + request.getValue();
-//
-//                Response r1 = new Response();
-//                if(request.getType().equals("get")){
-//                    r1 = m1(request);
-//                }else if(request.getType().equals("set")){
-//                    r1 = m2(request);
-//                }else if(request.getType().equals("delete")){
-//                    r1 = m3(request);
-//                }else{
-//                    r1.setResponse("OK");
-//                }
-//
-//
-////                Response response = new Response();
-////                String sendMessage = getResult(received, database, response);
-//                String sendMessage = new Gson().toJson(r1);
-//                output.writeUTF(sendMessage);
-//
-//                if(request.getType().equals("exit"))break;
 
             }
 
@@ -156,11 +125,6 @@ public class Main {
             Gson gson = new Gson();
             JsonObject jsonObject = gson.fromJson(reader, JsonObject.class);
 
-//            if (jsonObject.has("key") && jsonObject.get("key").getAsString().equals(request.getKey())) {
-//                // Remove the object from the file
-//                file.delete();
-////            }
-
             if(jsonObject.has("key") && jsonObject.get("key").getAsString().equals(request.getKey())){
                 jsonObject.remove("key");
                 jsonObject.remove("value");
@@ -180,36 +144,6 @@ public class Main {
         }
 
         return response;
-
-//        String existingJson = readJsonFromFile(path.toString());
-//
-//        Gson gson = new Gson();
-//        Type listType = new TypeToken<List<Request>>(){}.getType();
-//        List<Request> dataList = gson.fromJson(existingJson, listType);
-//
-//        Boolean isPresent = false;
-//
-//        Iterator<Request> iterator = dataList.iterator();
-//        while (iterator.hasNext()) {
-//            Request dataObject = iterator.next();
-//            if (dataObject.getKey().equals(request.getKey())) {
-//                iterator.remove(); // Remove the object
-//                response.setResponse("OK");
-//                isPresent = true;
-//                break;
-//            }
-//        }
-//
-//        String updatedJson = gson.toJson(dataList);
-//
-//        // Write the updated JSON content back to the file
-//        writeJsonToFile(updatedJson, path.toString());
-//
-//        if(isPresent)return response;
-//
-//        response.setResponse("ERROR");
-//        response.setReason("No such key");
-//        return response;
 
     }
 
@@ -241,34 +175,6 @@ public class Main {
             e.printStackTrace();
         }
 
-//        String existingJson = readJsonFromFile(path.toString());
-//
-//        // Parse existing JSON array into a list of objects
-//        Gson gson = new Gson();
-//        Type listType = new TypeToken<List<Request>>(){}.getType();
-//        List<Request> dataList = gson.fromJson(existingJson, listType);
-//
-//        Boolean isPresent = false;
-//        // Find and update the value with key "2"
-//        for (Request dataObject : dataList) {
-//            if (dataObject.getKey().equals(request.getKey())) {
-//                dataObject.setValue(request.getValue());
-//                isPresent = true;
-//                break; // Stop after finding and updating the value
-//            }
-//        }
-//
-//        if(!isPresent){
-//            dataList.add(r1);
-//        }
-//
-//        // Convert the updated list back to JSON
-//        String updatedJson = gson.toJson(dataList);
-//
-//        // Write the updated JSON content back to the file
-//        writeJsonToFile(updatedJson, path.toString());
-
-
         response.setResponse("OK");
         return response;
 
@@ -297,33 +203,6 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        String existingJson = readJsonFromFile(path.toString());
-//
-//        // Parse existing JSON array into a list of objects
-//        Gson gson = new Gson();
-//        Type listType = new TypeToken<List<Request>>(){}.getType();
-//        List<Request> dataList = gson.fromJson(existingJson, listType);
-//
-//        Boolean isPresent = false;
-//
-//        for (Request dataObject : dataList) {
-//            if (dataObject.getKey().equals(request.getKey())) {
-//                response.setResponse("OK");
-//                response.setValue(dataObject.getValue());
-//                isPresent = true;
-//                break; // Stop after finding and updating the value
-//            }
-//        }
-//
-//        String updatedJson = gson.toJson(dataList);
-//
-//        // Write the updated JSON content back to the file
-//        writeJsonToFile(updatedJson, path.toString());
-//
-//        if(isPresent){
-//            return response;
-//        }
 
         return response;
     }

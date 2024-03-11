@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">0</div>
+<div class="counter">1</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.650s</div>
+<div class="counter">0.373s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox success" id="successRate">
-<div class="percent">100%</div>
+<div class="infoBox failures" id="successRate">
+<div class="percent">0%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,127 +61,57 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Tests</a>
+<a href="#tab0">Failed tests</a>
 </li>
 <li>
-<a href="#tab1">Standard output</a>
+<a href="#tab1">Tests</a>
 </li>
 <li>
-<a href="#tab2">Standard error</a>
+<a href="#tab2">Standard output</a>
+</li>
+<li>
+<a href="#tab3">Standard error</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
-<h2>Tests</h2>
-<table>
-<thead>
-<tr>
-<th>Test</th>
-<th>Duration</th>
-<th>Result</th>
-</tr>
-</thead>
-<tr>
-<td class="success">start</td>
-<td class="success">0.650s</td>
-<td class="success">passed</td>
-</tr>
-</table>
-</div>
-<div id="tab1" class="tab">
-<h2>Standard output</h2>
+<h2>Failed tests</h2>
+<div class="test">
+<a name="start"></a>
+<h3 class="failures">start</h3>
 <span class="code">
-<pre>?[1;31m
-Start test 1?[0m
+<pre>java.lang.AssertionError: Exception in test #3
+
+com.beust.jcommander.ParameterException: Could not invoke null
+    Reason: Can not set com.google.gson.JsonElement field client.Main.index to java.lang.String
+	at com.beust.jcommander.Parameterized.set(Parameterized.java:273)
+	at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:86)
+	at com.beust.jcommander.WrappedParameter.addValue(WrappedParameter.java:74)
+	at com.beust.jcommander.ParameterDescription.addValue(ParameterDescription.java:277)
+	at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:913)
+	at com.beust.jcommander.JCommander.processFixedArity(JCommander.java:894)
+	at com.beust.jcommander.JCommander.parseValues(JCommander.java:724)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:356)
+	at com.beust.jcommander.JCommander.parse(JCommander.java:335)
+	at client.Main.main(Main.java:45)
+
+Please find below the output of your program during this failed test.
+
+---
+
+Arguments for Main: -t set -k 1 -v &quot;Hello world!&quot;
+
+stdout:
 Server started!
-Client started!
-Sent: {&quot;type&quot;:&quot;exit&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-?[1;31m
-Start test 2?[0m
-?[1;31m
-Start test 3?[0m
-Server started!
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;1&quot;}
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;Hello world!&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;1&quot;,&quot;value&quot;:&quot;HelloWorld!&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;1&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;HelloWorld!&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;1&quot;}
-1
-null
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;1&quot;}
-1
-null
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;1&quot;}
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;text&quot;,&quot;value&quot;:&quot;Some text here&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;text&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Some text here&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;56&quot;}
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;56&quot;}
-56
-null
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;100&quot;}
-100
-null
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;That key doesn\u0027t exist&quot;}
-That key doesn't exist
-null
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;set&quot;,&quot;key&quot;:&quot;name&quot;,&quot;value&quot;:&quot;Kate&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;name&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;,&quot;value&quot;:&quot;Kate&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;delete&quot;,&quot;key&quot;:&quot;name&quot;}
-name
-null
-Received: {&quot;response&quot;:&quot;OK&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;get&quot;,&quot;key&quot;:&quot;name&quot;}
-Received: {&quot;response&quot;:&quot;ERROR&quot;,&quot;reason&quot;:&quot;No such key&quot;}
-Client started!
-Sent: {&quot;type&quot;:&quot;exit&quot;}
-Received: {&quot;response&quot;:&quot;OK&quot;}
-</pre>
-</span>
-</div>
-<div id="tab2" class="tab">
-<h2>Standard error</h2>
-<span class="code">
-<pre>java.net.SocketException: Socket closed
-	at java.base/sun.nio.ch.NioSocketImpl.endAccept(NioSocketImpl.java:694)
-	at java.base/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:767)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:675)
-	at java.base/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:617)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:574)
-	at java.base/java.net.ServerSocket.accept(ServerSocket.java:532)
-	at server.Main.main(Main.java:38)
+
+stderr:
+java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.Net.bind(Net.java:544)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+	at java.base/java.net.ServerSocket.&lt;init&gt;(ServerSocket.java:274)
+	at server.Main.main(Main.java:33)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -193,15 +123,121 @@ Received: {&quot;response&quot;:&quot;OK&quot;}
 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
 	at java.base/java.lang.Thread.run(Thread.java:840)
-java.net.SocketException: Socket closed
-	at java.base/sun.nio.ch.NioSocketImpl.endAccept(NioSocketImpl.java:694)
-	at java.base/sun.nio.ch.NioSocketImpl.accept(NioSocketImpl.java:767)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:675)
-	at java.base/java.net.ServerSocket.platformImplAccept(ServerSocket.java:641)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:617)
-	at java.base/java.net.ServerSocket.implAccept(ServerSocket.java:574)
-	at java.base/java.net.ServerSocket.accept(ServerSocket.java:532)
-	at server.Main.main(Main.java:38)
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:27)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</pre>
+</span>
+</div>
+</div>
+<div id="tab1" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="failures">start</td>
+<td class="failures">0.373s</td>
+<td class="failures">failed</td>
+</tr>
+</table>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>?[1;31m
+Start test 1?[0m
+Server started!
+Client started!
+Sent: null
+Received: {}
+?[1;31m
+Start test 2?[0m
+?[1;31m
+Start test 3?[0m
+Server started!
+</pre>
+</span>
+</div>
+<div id="tab3" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.Net.bind(Net.java:544)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+	at java.base/java.net.ServerSocket.&lt;init&gt;(ServerSocket.java:274)
+	at server.Main.main(Main.java:33)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.invokeMain(MainMethodExecutor.java:160)
+	at org.hyperskill.hstest.testing.execution.MainMethodExecutor.lambda$launch$1(MainMethodExecutor.java:188)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+java.net.BindException: Address already in use
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:555)
+	at java.base/sun.nio.ch.Net.bind(Net.java:544)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:648)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:388)
+	at java.base/java.net.ServerSocket.&lt;init&gt;(ServerSocket.java:274)
+	at server.Main.main(Main.java:33)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -224,7 +260,7 @@ java.net.SocketException: Socket closed
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.3.3</a> at 11-Mar-2024, 12:32:21 am</p>
+<a href="http://www.gradle.org">Gradle 7.3.3</a> at 11-Mar-2024, 1:46:42 am</p>
 </div>
 </div>
 </body>
