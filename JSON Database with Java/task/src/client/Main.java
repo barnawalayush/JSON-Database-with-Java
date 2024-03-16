@@ -41,33 +41,29 @@ public class Main {
                 .build()
                 .parse(args);
 
-        try(
+        try (
                 Socket socket = new Socket(InetAddress.getByName(SERVER_ADDRESS), PORT);
                 DataInputStream input = new DataInputStream(socket.getInputStream());
-                DataOutputStream output  = new DataOutputStream(socket.getOutputStream());
-        ){
+                DataOutputStream output = new DataOutputStream(socket.getOutputStream());
+        ) {
             System.out.println("Client started!");
 
 
-            if(fileName == null){
+            if (fileName == null) {
                 request = new Request(typeOfOperation, key, value);
-            }else{
+            } else {
                 String content = new String(Files.readAllBytes(Paths.get("/Users/abarnawal/Java Intellijec Projects/JSON Database with Java/JSON Database with Java/task/src/client/fileName/" + fileName)));
                 request = new Gson().fromJson(content, Request.class);
             }
 
-
-//            String sendMessage = main.typeOfOperation + " " + main.index + " " + main.text;
             String sendMessage = new Gson().toJson(request);
             output.writeUTF(sendMessage);
             System.out.println("Sent: " + sendMessage);
 
             String receivedMessage = input.readUTF();
             System.out.println("Received: " + receivedMessage);
-//                if(main.typeOfOperation.equals("exit"))break;
-//            }
 
-        }catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

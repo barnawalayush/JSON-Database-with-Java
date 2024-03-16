@@ -8,8 +8,7 @@ public class JsonElementConverter implements IStringConverter<JsonElement> {
     @Override
     public JsonElement convert(String value) {
         try {
-            // Try parsing the input value as JSON
-            return new JsonPrimitive(value); // Return a JsonPrimitive representing a string
+            return new JsonPrimitive(value);
         } catch (Exception e) {
             throw new IllegalArgumentException("Error converting JSON string to JsonElement: " + e.getMessage(), e);
         }

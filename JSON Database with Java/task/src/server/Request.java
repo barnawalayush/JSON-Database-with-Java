@@ -8,7 +8,8 @@ public class Request {
     private JsonElement key;
     private JsonElement value;
 
-    public Request(){}
+    public Request() {
+    }
 
     public Request(String type, JsonElement key, JsonElement value) {
         this.type = type;
