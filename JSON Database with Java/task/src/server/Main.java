@@ -11,6 +11,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -142,13 +144,31 @@ public class Main {
                 JsonObject originalJsonObject = jsonObject;
                 JsonArray keyArray = keySet.getAsJsonArray();
 
-                for (int index = 0; index < keyArray.size() - 1; index++) {
-                    String key = String.valueOf(keyArray.get(index));
-                    key = key.substring(1, key.length() - 1);
-                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-                        jsonObject = jsonObject.get(key).getAsJsonObject();
+                class JsonObjectClass {
+                    JsonObject jsonObject;
+
+                    public JsonObjectClass(JsonObject jsonObject) {
+                        this.jsonObject = jsonObject;
                     }
                 }
+                ;
+                JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
+                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(index -> {
+                    String key = String.valueOf(keyArray.get(index));
+                    key = key.substring(1, key.length() - 1);
+                    if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
+                        jsonObjectClass.jsonObject = jsonObjectClass.jsonObject.get(key).getAsJsonObject();
+                    }
+                });
+                jsonObject = jsonObjectClass.jsonObject;
+
+//                for (int index = 0; index < keyArray.size() - 1; index++) {
+//                    String key = String.valueOf(keyArray.get(index));
+//                    key = key.substring(1, key.length() - 1);
+//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
+//                        jsonObject = jsonObject.get(key).getAsJsonObject();
+//                    }
+//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
@@ -208,13 +228,31 @@ public class Main {
                 JsonObject originalJsonObject = jsonObject;
                 JsonArray keyArray = keySet.getAsJsonArray();
 
-                for (int index = 0; index < keyArray.size() - 1; index++) {
-                    String key = String.valueOf(keyArray.get(index));
-                    key = key.substring(1, key.length() - 1);
-                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-                        jsonObject = jsonObject.get(key).getAsJsonObject();
+                class JsonObjectClass {
+                    JsonObject jsonObject;
+
+                    public JsonObjectClass(JsonObject jsonObject) {
+                        this.jsonObject = jsonObject;
                     }
                 }
+                ;
+                JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
+                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(ind -> {
+                    String key = String.valueOf(keyArray.get(ind));
+                    key = key.substring(1, key.length() - 1);
+                    if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
+                        jsonObjectClass.jsonObject = jsonObjectClass.jsonObject.get(key).getAsJsonObject();
+                    }
+                });
+                jsonObject = jsonObjectClass.jsonObject;
+
+//                for (int index = 0; index < keyArray.size() - 1; index++) {
+//                    String key = String.valueOf(keyArray.get(index));
+//                    key = key.substring(1, key.length() - 1);
+//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
+//                        jsonObject = jsonObject.get(key).getAsJsonObject();
+//                    }
+//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
@@ -269,13 +307,32 @@ public class Main {
                 JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
                 JsonArray keyArray = keySet.getAsJsonArray();
 
-                for (int index = 0; index < keyArray.size() - 1; index++) {
-                    String key = String.valueOf(keyArray.get(index));
-                    key = key.substring(1, key.length() - 1);
-                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-                        jsonObject = jsonObject.get(key).getAsJsonObject();
+                class JsonObjectClass {
+                    JsonObject jsonObject;
+
+                    public JsonObjectClass(JsonObject jsonObject) {
+                        this.jsonObject = jsonObject;
                     }
                 }
+                ;
+                JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
+
+                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(ind -> {
+                    String key = String.valueOf(keyArray.get(ind));
+                    key = key.substring(1, key.length() - 1);
+                    if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
+                        jsonObjectClass.jsonObject = jsonObjectClass.jsonObject.get(key).getAsJsonObject();
+                    }
+                });
+                jsonObject = jsonObjectClass.jsonObject;
+
+//                for (int index = 0; index < keyArray.size() - 1; index++) {
+//                    String key = String.valueOf(keyArray.get(index));
+//                    key = key.substring(1, key.length() - 1);
+//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
+//                        jsonObject = jsonObject.get(key).getAsJsonObject();
+//                    }
+//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
