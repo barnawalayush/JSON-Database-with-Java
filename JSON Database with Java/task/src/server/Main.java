@@ -11,7 +11,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
@@ -20,8 +19,6 @@ public class Main {
     private static final String SERVER_ADDRESS = "127.0.0.1";
 
     public static void main(String[] args) {
-
-        String receivedMessage = "";
 
         System.out.println("Server started!");
 
@@ -35,8 +32,8 @@ public class Main {
                 DataInputStream input = new DataInputStream(socket.getInputStream());
                 DataOutputStream output = new DataOutputStream(socket.getOutputStream());
 
-                Thread t = new ClientHandler(input, output, server);
-                t.start();
+                Thread clientThread = new ClientHandler(input, output, server);
+                clientThread.start();
 
             }
 
@@ -97,15 +94,11 @@ public class Main {
                 throw new RuntimeException(e);
             } finally {
                 try {
-//                        server.close();
                     output.writeUTF(new Gson().toJson(response));
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
             }
-//            }
-
-
         }
     }
 
@@ -151,9 +144,9 @@ public class Main {
                         this.jsonObject = jsonObject;
                     }
                 }
-                ;
                 JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
-                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(index -> {
+
+                Stream.iterate(0, index -> index < keyArray.size() - 1, index -> index + 1).forEach(index -> {
                     String key = String.valueOf(keyArray.get(index));
                     key = key.substring(1, key.length() - 1);
                     if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
@@ -161,14 +154,6 @@ public class Main {
                     }
                 });
                 jsonObject = jsonObjectClass.jsonObject;
-
-//                for (int index = 0; index < keyArray.size() - 1; index++) {
-//                    String key = String.valueOf(keyArray.get(index));
-//                    key = key.substring(1, key.length() - 1);
-//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-//                        jsonObject = jsonObject.get(key).getAsJsonObject();
-//                    }
-//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
@@ -198,10 +183,6 @@ public class Main {
         if (keySet.isJsonPrimitive()) {
 
             try {
-                String jsonString = new String(Files.readAllBytes(path));
-                JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
-                JsonObject originalJsonObject = jsonObject;
-
                 String key = String.valueOf(keySet);
                 key = key.substring(1, key.length() - 1);
 
@@ -237,22 +218,14 @@ public class Main {
                 }
                 ;
                 JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
-                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(ind -> {
-                    String key = String.valueOf(keyArray.get(ind));
+                Stream.iterate(0, index -> index < keyArray.size() - 1, index -> index + 1).forEach(index -> {
+                    String key = String.valueOf(keyArray.get(index));
                     key = key.substring(1, key.length() - 1);
                     if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
                         jsonObjectClass.jsonObject = jsonObjectClass.jsonObject.get(key).getAsJsonObject();
                     }
                 });
                 jsonObject = jsonObjectClass.jsonObject;
-
-//                for (int index = 0; index < keyArray.size() - 1; index++) {
-//                    String key = String.valueOf(keyArray.get(index));
-//                    key = key.substring(1, key.length() - 1);
-//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-//                        jsonObject = jsonObject.get(key).getAsJsonObject();
-//                    }
-//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
@@ -314,25 +287,16 @@ public class Main {
                         this.jsonObject = jsonObject;
                     }
                 }
-                ;
                 JsonObjectClass jsonObjectClass = new JsonObjectClass(jsonObject);
 
-                Stream.iterate(0, ind -> ind < keyArray.size() - 1, ind -> ind + 1).forEach(ind -> {
-                    String key = String.valueOf(keyArray.get(ind));
+                Stream.iterate(0, index -> index < keyArray.size() - 1, index -> index + 1).forEach(index -> {
+                    String key = String.valueOf(keyArray.get(index));
                     key = key.substring(1, key.length() - 1);
                     if (jsonObjectClass.jsonObject.has(key) && jsonObjectClass.jsonObject.get(key).isJsonObject()) {
                         jsonObjectClass.jsonObject = jsonObjectClass.jsonObject.get(key).getAsJsonObject();
                     }
                 });
                 jsonObject = jsonObjectClass.jsonObject;
-
-//                for (int index = 0; index < keyArray.size() - 1; index++) {
-//                    String key = String.valueOf(keyArray.get(index));
-//                    key = key.substring(1, key.length() - 1);
-//                    if (jsonObject.has(key) && jsonObject.get(key).isJsonObject()) {
-//                        jsonObject = jsonObject.get(key).getAsJsonObject();
-//                    }
-//                }
 
                 String key = String.valueOf(keyArray.get(keyArray.size() - 1));
                 key = key.substring(1, key.length() - 1);
@@ -349,37 +313,4 @@ public class Main {
         }
     }
 
-    private static void writeJsonToFile(String json, String filePath) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            writer.write(json);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static String readJsonFromFile(String filePath) {
-        StringBuilder json = new StringBuilder();
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                json.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return json.toString();
-    }
-
 }
-
-//-t get -k [ pereson, name ]
-//
-//important
-//post correct naming convention
-//proper identation
-//project structure
-//
-//
-//consider all other exceptions
-//input validation
-////apply stream
